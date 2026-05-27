@@ -1,5 +1,8 @@
+#pragma once
+
 #include <vector>
 #include <cstdint>
+#include <algorithm>
 
 #include "colors.h"
 #include "compressor_funcs.h"
@@ -25,4 +28,13 @@ void toGrayscale(CompressedImage& img);
 
 template <typename Image>
 void mirror(Image& img, bool horizontal = false) {
+    if (horizontal) {
+        // Flip left-right: reverse each row
+        for (auto& row : img.image_data) {
+            std::reverse(row.begin(), row.end());
+        }
+    } else {
+        // Flip top-bottom: reverse the rows
+        std::reverse(img.image_data.begin(), img.image_data.end());
+    }
 }
